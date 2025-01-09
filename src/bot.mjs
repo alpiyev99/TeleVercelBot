@@ -1,6 +1,6 @@
 import TeleBot from "telebot"
 
-const bot = process.env.TELEGRAM_TOKEN
+const bot = new TeleBot(process.env.TELEGRAM_TOKEN)
 const openaiApiKey = process.env.OPENAI_API_KEY
 
 bot.on('text', async msg => {
