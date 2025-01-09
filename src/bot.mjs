@@ -1,4 +1,5 @@
-import TeleBot from "telebot"
+import TeleBot from 'telebot'
+import axios from 'axios' // Импортируем axios
 
 const bot = new TeleBot(process.env.TELEGRAM_TOKEN)
 const openaiApiKey = process.env.OPENAI_API_KEY
@@ -7,17 +8,17 @@ bot.on('text', async msg => {
 	const chatId = msg.chat.id
 	const userMessage = msg.text
 
-	if (!userMessage) {
+	if (!userMessage.trim()) {
 		bot.sendMessage(chatId, 'Пожалуйста, отправьте текст для перевода.')
 		return
 	}
 
 	try {
-		// Запрос к OpenAI для перевода текста
+		// Запрос к OpenAI для обработки текста
 		const response = await axios.post(
 			'https://api.openai.com/v1/chat/completions',
 			{
-				model: 'o1-2024-12-17',
+				model: 'o1-2024-12-17', // Убедитесь, что модель правильная
 				messages: [
 					{ role: 'system', content: 'Ты мой помощник в кодинге.' },
 					{ role: 'user', content: userMessage },
@@ -35,11 +36,14 @@ bot.on('text', async msg => {
 
 		const translation = response.data.choices[0].message.content
 
-		bot.sendMessage(chatId, `${translation}`)
+		bot.sendMessage(chatId, translation)
 	} catch (error) {
-		console.error(error)
-		bot.sendMessage(chatId, 'Произошла ошибка при попытке перевести текст.')
+		console.error('Ошибка при запросе к OpenAI:', error.message || error)
+		bot.sendMessage(
+			chatId,
+			'Произошла ошибка при попытке обработать ваш запрос.'
+		)
 	}
-});
+})
 
 export default bot
