@@ -40,6 +40,6 @@ bot.on('text', async msg => {
 		console.error(error)
 		bot.sendMessage(chatId, 'Произошла ошибка при попытке перевести текст.')
 	}
-})
+});
 
 export default bot
