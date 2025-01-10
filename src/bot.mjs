@@ -18,7 +18,7 @@ bot.on('text', async msg => {
 		const response = await axios.post(
 			'https://api.openai.com/v1/chat/completions',
 			{
-				model: 'gpt-4', // Убедитесь, что модель правильная
+				model: 'gpt-3.5-turbo', // Убедитесь, что модель правильная
 				messages: [
 					{ role: 'system', content: 'Ты мой помощник в кодинге.' },
 					{ role: 'user', content: userMessage },
@@ -44,6 +44,6 @@ bot.on('text', async msg => {
 			'Произошла ошибка при попытке обработать ваш запрос.'
 		)
 	}
-})
+});
 
 export default bot
