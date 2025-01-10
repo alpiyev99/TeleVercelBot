@@ -18,7 +18,7 @@ bot.on('text', async msg => {
 		const response = await axios.post(
 			'https://api.openai.com/v1/chat/completions',
 			{
-				model: 'o1-2024-12-17', // Убедитесь, что модель правильная
+				model: 'gpt-4', // Убедитесь, что модель правильная
 				messages: [
 					{ role: 'system', content: 'Ты мой помощник в кодинге.' },
 					{ role: 'user', content: userMessage },
